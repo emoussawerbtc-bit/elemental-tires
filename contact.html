@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solicitar Cotización — Elemental Tires</title>
+  <link rel="icon" type="image/png" href="assets/img/logo.png" />
+  <meta name="description" content="Solicita una cotización de llantas industriales, agrícolas, OTR o sólidas. Respuesta en 24 horas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+  <link rel="stylesheet" href="assets/css/main.css?v=20260608" />
+  <style>
+    .contact-page {
+      padding-top: calc(var(--nav-h) + 4rem);
+      padding-bottom: 6rem;
+      min-height: 100vh;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: flex-start;
+      max-width: var(--container);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+    .contact-info {}
+    .contact-info .eyebrow {
+      font-family: var(--font-ui);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: .8rem;
+    }
+    .contact-info h1 {
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 900;
+      line-height: .9;
+      margin-bottom: 1.5rem;
+    }
+    .contact-info p {
+      font-size: .9rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-width: 42ch;
+      margin-bottom: 2.5rem;
+    }
+    .contact-direct {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      margin-bottom: 2rem;
+    }
+    .contact-direct__item {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .contact-direct__item:hover { color: var(--accent); }
+    .contact-direct__icon { font-size: 1.1rem; flex-shrink: 0; }
+    .contact-promises {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .contact-promise {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contact-promise__icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(232,101,10,.12);
+      border: 1px solid rgba(232,101,10,.3);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: .9rem;
+      flex-shrink: 0;
+    }
+    .contact-promise h4 {
+      font-family: var(--font-ui);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: .2rem;
+    }
+    .contact-promise p { font-size: .82rem; color: var(--text-muted); margin: 0; }
+
+    /* FORM */
+    .quote-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2.5rem 2.5rem;
+    }
+    .quote-form h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 2rem;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem 1.5rem;
+    }
+    .form-grid .full { grid-column: 1 / -1; }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+    .field label {
+      font-family: var(--font-ui);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: .85rem;
+      padding: .75rem 1rem;
+      border-radius: 5px;
+      width: 100%;
+      transition: border-color .2s var(--ease-out);
+      appearance: none;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,101,10,.1);
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: var(--text-muted); }
+    .field textarea { resize: vertical; min-height: 120px; }
+    .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .field select option { background: var(--bg-card); }
+
+    .form-submit {
+      margin-top: 1.8rem;
+    }
+    .form-submit button {
+      width: 100%;
+      padding: 1rem;
+      font-size: .9rem;
+    }
+    .form-note {
+      margin-top: 1rem;
+      font-size: .75rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 540px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .quote-form { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link" data-es="Ir al contenido" data-en="Skip to content">Ir al contenido</a>
+<div id="scroll-bar"></div>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/img/logo.png" alt="Elemental Tires" /></a>
+    <ul class="nav__links">
+      <li><a href="agricultural.html" data-es="Agrícola" data-en="Agricultural">Agrícola</a></li>
+      <li><a href="industrial.html" data-es="Industrial" data-en="Industrial">Industrial</a></li>
+      <li><a href="offroad.html" data-es="OTR" data-en="OTR">OTR</a></li>
+      <li><a href="solid.html" data-es="Sólidas" data-en="Solid">Sólidas</a></li>
+    </ul>
+    <div class="nav__right">
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <a href="contact.html" class="nav__cta active" data-es="Cotizar" data-en="Get Quote">Cotizar</a>
+    </div>
+    <button class="nav__hamburger" aria-label="Menú"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav__drawer">
+  <a href="agricultural.html" data-es="Agrícola" data-en="Agricultural">Agrícola</a>
+  <a href="industrial.html" data-es="Industrial" data-en="Industrial">Industrial</a>
+  <a href="offroad.html">OTR</a>
+  <a href="solid.html" data-es="Sólidas" data-en="Solid">Sólidas</a>
+  <a href="contact.html" class="btn btn--primary btn--sm" data-es="Cotizar" data-en="Get Quote">Cotizar</a>
+</div>
+
+<main id="main" class="contact-page">
+  <div class="contact-grid">
+
+    <!-- LEFT: INFO -->
+    <div class="contact-info reveal">
+      <span class="eyebrow" data-es="SOLICITAR COTIZACIÓN" data-en="REQUEST QUOTE">SOLICITAR COTIZACIÓN</span>
+      <h1 data-es="HABLEMOS<br>DE TU<br>FLOTA" data-en="LET'S TALK<br>ABOUT YOUR<br>FLEET">HABLEMOS<br>DE TU<br>FLOTA</h1>
+      <p data-es="Envíanos las especificaciones de tu maquinaria y recibe una cotización personalizada en menos de 24 horas hábiles."
+         data-en="Send us your equipment specifications and receive a personalized quote in less than 24 business hours.">
+        Envíanos las especificaciones de tu maquinaria y recibe una cotización personalizada en menos de 24 horas hábiles.
+      </p>
+      <div class="contact-direct">
+        <a href="https://wa.me/528113302095" target="_blank" rel="noopener" class="contact-direct__item">
+          <span class="contact-direct__icon">📞</span>
+          <span>+52 811 330 2095</span>
+        </a>
+        <a href="mailto:alexhernandez@elementaltires.com.mx" class="contact-direct__item">
+          <span class="contact-direct__icon">✉</span>
+          <span>alexhernandez@elementaltires.com.mx</span>
+        </a>
+      </div>
+      <div class="contact-promises">
+        <div class="contact-promise">
+          <div class="contact-promise__icon">⚡</div>
+          <div>
+            <h4 data-es="Respuesta en 24h" data-en="24h Response">Respuesta en 24h</h4>
+            <p data-es="Cotización detallada en menos de un día hábil." data-en="Detailed quote in less than one business day.">Cotización detallada en menos de un día hábil.</p>
+          </div>
+        </div>
+        <div class="contact-promise">
+          <div class="contact-promise__icon">◆</div>
+          <div>
+            <h4 data-es="Asesoría Técnica" data-en="Technical Advice">Asesoría Técnica</h4>
+            <p data-es="Te ayudamos a elegir la llanta correcta para tu aplicación." data-en="We help you choose the right tire for your application.">Te ayudamos a elegir la llanta correcta para tu aplicación.</p>
+          </div>
+        </div>
+        <div class="contact-promise">
+          <div class="contact-promise__icon">✓</div>
+          <div>
+            <h4 data-es="Garantía Incluida" data-en="Warranty Included">Garantía Incluida</h4>
+            <p data-es="Todos los productos incluyen garantía de ajuste por defecto de fabricación." data-en="All products include adjustment warranty for manufacturing defects.">Todos los productos incluyen garantía de ajuste.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="quote-form reveal" style="transition-delay:.1s">
+      <h2 data-es="Formulario de Cotización" data-en="Quote Request Form">Formulario de Cotización</h2>
+      <form id="quote-form" novalidate>
+        <div class="form-grid">
+
+          <div class="field">
+            <label for="name" data-es="NOMBRE COMPLETO *" data-en="FULL NAME *">NOMBRE COMPLETO *</label>
+            <input type="text" id="name" name="name" required
+                   placeholder="Juan Pérez"
+                   data-es-placeholder="Juan Pérez" data-en-placeholder="John Smith" />
+          </div>
+
+          <div class="field">
+            <label for="company" data-es="EMPRESA *" data-en="COMPANY *">EMPRESA *</label>
+            <input type="text" id="company" name="company" required
+                   placeholder="Constructora ABC"
+                   data-es-placeholder="Constructora ABC" data-en-placeholder="ABC Construction" />
+          </div>
+
+          <div class="field">
+            <label for="email" data-es="CORREO ELECTRÓNICO *" data-en="EMAIL *">CORREO ELECTRÓNICO *</label>
+            <input type="email" id="email" name="email" required
+                   placeholder="juan@empresa.com"
+                   data-es-placeholder="juan@empresa.com" data-en-placeholder="john@company.com" />
+          </div>
+
+          <div class="field">
+            <label for="phone" data-es="TELÉFONO" data-en="PHONE">TELÉFONO</label>
+            <input type="tel" id="phone" name="phone"
+                   placeholder="+1 (555) 000-0000" />
+          </div>
+
+          <div class="field">
+            <label for="country" data-es="PAÍS" data-en="COUNTRY">PAÍS</label>
+            <select id="country" name="country">
+              <option value="" data-es="Seleccionar..." data-en="Select...">Seleccionar...</option>
+              <option value="mx">México</option>
+              <option value="co">Colombia</option>
+              <option value="pe">Perú</option>
+              <option value="cl">Chile</option>
+              <option value="ar">Argentina</option>
+              <option value="br">Brasil</option>
+              <option value="us">United States</option>
+              <option value="gt">Guatemala</option>
+              <option value="cr">Costa Rica</option>
+              <option value="pa">Panamá</option>
+              <option value="other" data-es="Otro" data-en="Other">Otro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="category" data-es="CATEGORÍA DE LLANTA" data-en="TIRE CATEGORY">CATEGORÍA DE LLANTA</label>
+            <select id="category" name="category">
+              <option value="" data-es="Seleccionar..." data-en="Select...">Seleccionar...</option>
+              <option value="agricultural" data-es="Agrícola" data-en="Agricultural">Agrícola</option>
+              <option value="industrial" data-es="Industrial" data-en="Industrial">Industrial</option>
+              <option value="otr" data-es="OTR Off the Road" data-en="OTR Off the Road">OTR Off the Road</option>
+              <option value="solid" data-es="Sólida" data-en="Solid">Sólida</option>
+              <option value="multiple" data-es="Varias categorías" data-en="Multiple categories">Varias categorías</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="product-interest" data-es="PRODUCTO / TALLA DE INTERÉS" data-en="PRODUCT / SIZE OF INTEREST">PRODUCTO / TALLA DE INTERÉS</label>
+            <input type="text" id="product-interest" name="product"
+                   placeholder="ej: R1 Drive Wheel 11.2-24 PR8"
+                   data-es-placeholder="ej: R1 Drive Wheel 11.2-24 PR8"
+                   data-en-placeholder="e.g.: R1 Drive Wheel 11.2-24 PR8" />
+          </div>
+
+          <div class="field full">
+            <label for="quantity" data-es="CANTIDAD ESTIMADA" data-en="ESTIMATED QUANTITY">CANTIDAD ESTIMADA</label>
+            <input type="text" id="quantity" name="quantity"
+                   placeholder="ej: 20 unidades"
+                   data-es-placeholder="ej: 20 unidades"
+                   data-en-placeholder="e.g.: 20 units" />
+          </div>
+
+          <div class="field full">
+            <label for="message" data-es="DETALLES ADICIONALES" data-en="ADDITIONAL DETAILS">DETALLES ADICIONALES</label>
+            <textarea id="message" name="message"
+                      placeholder="Tipo de maquinaria, condiciones de operación, urgencia de entrega..."
+                      data-es-placeholder="Tipo de maquinaria, condiciones de operación, urgencia de entrega..."
+                      data-en-placeholder="Equipment type, operating conditions, delivery urgency..."></textarea>
+          </div>
+
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn btn--primary"
+                  data-es="Enviar Solicitud" data-en="Send Request">Enviar Solicitud</button>
+        </div>
+        <p class="form-note"
+           data-es="Al enviar este formulario aceptas ser contactado por el equipo de Elemental Tires."
+           data-en="By submitting this form you agree to be contacted by the Elemental Tires team.">
+          Al enviar este formulario aceptas ser contactado por el equipo de Elemental Tires.
+        </p>
+      </form>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__logo"><img src="assets/img/logo.png" alt="Elemental Tires" /></div>
+      <p class="footer__tagline" data-es="Llantas de alto rendimiento para la maquinaria más exigente." data-en="High-performance tires for the most demanding machinery.">Llantas de alto rendimiento.</p>
+    </div>
+    <div class="footer__col">
+      <h4 data-es="Categorías" data-en="Categories">Categorías</h4>
+      <ul>
+        <li><a href="agricultural.html" data-es="Agrícola" data-en="Agricultural">Agrícola</a></li>
+        <li><a href="industrial.html" data-es="Industrial" data-en="Industrial">Industrial</a></li>
+        <li><a href="offroad.html">OTR</a></li>
+        <li><a href="solid.html" data-es="Sólidas" data-en="Solid">Sólidas</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4 data-es="Contacto" data-en="Contact">Contacto</h4>
+      <ul><li><a href="contact.html" data-es="Solicitar Cotización" data-en="Request Quote">Solicitar Cotización</a></li></ul>
+    </div>
+    <div class="footer__col"></div>
+  </div>
+  <div class="footer__bottom">
+    <span class="footer__copy">© 2026 Elemental Tires.</span>
+  </div>
+</footer>
+
+<script defer src="lib/gsap.min.js"></script>
+<script defer src="lib/ScrollTrigger.min.js"></script>
+<script defer src="assets/js/main.js?v=20260608"></script>
+</body>
+</html>
+
