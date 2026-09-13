@@ -429,6 +429,17 @@ h1, h2, h3, h4 {
   transition: background .15s;
 }
 .spec-table tbody tr:last-child { border-bottom: 0; }
+.spec-table__group td {
+  background: #1a1a1a;
+  color: var(--accent);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .5rem 1rem;
+  border-top: 1px solid var(--border);
+}
 .spec-table tbody tr:hover {
   background: #1F1F1F;
   border-left: 3px solid var(--accent);
